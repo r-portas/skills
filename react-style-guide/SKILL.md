@@ -7,6 +7,8 @@ description: >
   handlers, or deciding where to place files. When in doubt, match existing
   conventions rather than introducing new ones.
 user-invocable: false
+metadata:
+  author: r-portas
 ---
 
 # React Style Guide

@@ -9,6 +9,8 @@ description: >
   when you're deviating from them.
 user-invocable: false
 allowed-tools: WebFetch(https://es-toolkit.dev/*), WebFetch(https://orm.drizzle.team/*), WebFetch(https://zod.dev/*), WebFetch(https://tanstack.com/*)
+metadata:
+  author: r-portas
 ---
 
 # Preferred NPM Packages
@@ -43,9 +45,11 @@ choice — don't silently pull in something heavyweight.
 ## Dates
 - **date-fns** — functional, tree-shakeable date utilities.
   Avoid moment.js, dayjs, luxon.
-  ```
-  bun add date-fns
-  ```
+  Use the **bootstrap** skill to set up date-fns.
+
+## Formatting & Linting
+- **oxfmt + oxlint** — formatting and linting. Avoid Prettier and ESLint.
+  Use the **bootstrap** skill to set up oxfmt and oxlint.
 
 ## Styling
 - **Tailwind CSS + shadcn/ui** — utility-first styling with shadcn for
@@ -61,11 +65,8 @@ choice — don't silently pull in something heavyweight.
 - **Drizzle ORM + Bun SQLite** — for local and embedded databases.
   Use Drizzle's query builder; avoid Prisma, Knex, TypeORM.
   Docs: https://orm.drizzle.team/llms.txt
-  ```
-  bun add drizzle-orm
-  bun add -d drizzle-kit
-  ```
   Bun SQLite is built-in (`import { Database } from 'bun:sqlite'`), no install needed.
+  Use the **bootstrap** skill to set up Drizzle.
 
 ## Utility Functions
 - **es-toolkit** — modern lodash alternative with built-in TypeScript types,

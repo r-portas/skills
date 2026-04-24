@@ -1,6 +1,6 @@
 # Agent Skills
 
-A collection of agent skills for Claude Code.
+A collection of agent skills for Claude Code and other AI agents.
 
 ## Installation
 
@@ -30,3 +30,10 @@ Re-run `./install.sh` whenever you add new skills — existing symlinks are left
 |-------|-------------|
 | [preferred-npm-packages](./preferred-npm-packages/SKILL.md) | Preferred NPM packages and technology stack |
 | [react-style-guide](./react-style-guide/SKILL.md) | React component conventions and codestyle |
+| [bootstrap](./bootstrap/SKILL.md) | Install and configure packages and libraries into a project |
+
+## Other Skills
+
+Below is a list of other skills I use:
+
+- `bunx skills add https://github.com/shadcn/ui --skill shadcn`
