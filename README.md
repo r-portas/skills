@@ -29,3 +29,4 @@ Re-run `./install.sh` whenever you add new skills — existing symlinks are left
 | Skill | Description |
 |-------|-------------|
 | [preferred-npm-packages](./preferred-npm-packages/SKILL.md) | Preferred NPM packages and technology stack |
+| [react-style-guide](./react-style-guide/SKILL.md) | React component conventions and codestyle |
