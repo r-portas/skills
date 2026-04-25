@@ -235,3 +235,14 @@ Name handlers `handle` + action: `handleCopy`, `handleSubmit`, `handleSelect`. F
 
 <button onClick={() => capture("share_clicked", { slug })}>Share</button>
 ```
+
+## Before finishing
+
+After writing or editing any component, verify each item before reporting the task as done:
+
+- [ ] Regions used if file has more than one logical part (Helpers → Main export → Sub-components)
+- [ ] Default exported component has a TSDoc comment
+- [ ] Every prop on the interface has an inline comment
+- [ ] `cn()` used for all class composition (no string interpolation or manual ternaries)
+- [ ] `type` keyword on all type-only imports
+- [ ] Presentational components accept and forward a `className` prop
