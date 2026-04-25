@@ -31,6 +31,7 @@ Re-run `./install.sh` whenever you add new skills — existing symlinks are left
 | [preferred-npm-packages](./preferred-npm-packages/SKILL.md) | Preferred NPM packages and technology stack |
 | [react-style-guide](./react-style-guide/SKILL.md) | React component conventions and codestyle |
 | [bootstrap](./bootstrap/SKILL.md) | Install and configure packages and libraries into a project |
+| [maintain-changelog](./maintain-changelog/SKILL.md) | Maintain a CHANGELOG.md with date-based headings as you work |
 
 ## Other Skills
 
