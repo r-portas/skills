@@ -67,13 +67,44 @@ If an extracted component is only used in one place, keep it in the same file as
 
 ### File structure
 
-Files follow this order, using VSCode regions to delineate each section:
+Only add regions when a file has more than one logical part. A file with a single component needs no regions at all:
+
+```tsx
+// simple-badge.tsx — single component, no regions needed
+interface SimpleBadgeProps {
+  label: string;
+}
+
+export default function SimpleBadge({ label }: SimpleBadgeProps) {
+  return <span className="rounded px-2 py-0.5 text-xs">{label}</span>;
+}
+```
+
+When a file has multiple parts, use `// #region <description>` / `// #endregion` blocks in this order:
+
+1. **Types** — shared data types used across the file
+2. **Helpers** — private utility functions only used within this file
+3. **Main export** — the primary component (props interface lives inside this region)
+4. **Sub-components** — co-located components (each gets its own region, props interface inside)
 
 ```tsx
 // post-card.tsx
 
 // #region Types
 type PostSummary = { slug: string; title: string };
+// #endregion
+
+// #region Helpers
+function groupPostsByYear(posts: PostSummary[]) {
+  const groups: { year: number; posts: PostSummary[] }[] = [];
+  for (const post of posts) {
+    const year = new Date(post.date).getFullYear();
+    const last = groups[groups.length - 1];
+    if (last?.year === year) last.posts.push(post);
+    else groups.push({ year, posts: [post] });
+  }
+  return groups;
+}
 // #endregion
 
 // #region PostCard
@@ -98,8 +129,6 @@ function PostCardMeta({ date, tags }: PostCardMetaProps) {
 }
 // #endregion
 ```
-
-Add `// #region <description>` / `// #endregion` blocks whenever a file has more than one logical part. Each group — shared types, the main export, and any co-located sub-components — gets its own region.
 
 ### Hooks
 
@@ -155,6 +184,47 @@ Conditional rendering patterns:
 // Guard — early return
 if (posts.length === 0) return null;
 ```
+
+## Documentation
+
+### Components
+
+Default exported components get a TSDoc comment describing what the component does. Each field on the props interface gets an inline comment:
+
+```tsx
+/**
+ * Displays a post summary card with title, date, and tag list.
+ */
+export default function PostCard({ post, className }: PostCardProps) {
+  return <article className={cn("rounded-lg", className)}>...</article>;
+}
+
+interface PostCardProps {
+  /** The post data to display. */
+  post: PostSummary;
+  /** Extra Tailwind classes forwarded to the root element. */
+  className?: string;
+}
+```
+
+The component TSDoc should describe what the component renders or does — not restate the component name. One sentence is usually enough. Prop comments can be brief phrases; omit them only when the prop name is completely self-explanatory (rare).
+
+### Library helpers
+
+Exported functions under `src/lib/` get a TSDoc comment with a brief `@example` block:
+
+```ts
+/**
+ * Groups an array of posts by publication year, most recent first.
+ *
+ * @example
+ * const grouped = groupPostsByYear(posts);
+ * // [{ year: 2024, posts: [...] }, { year: 2023, posts: [...] }]
+ */
+export function groupPostsByYear(posts: PostSummary[]): YearGroup[] { ... }
+```
+
+The `@example` should show a realistic call and, where non-obvious, the shape of the return value. Keep it short — two or three lines at most. Skip `@param` and `@returns` tags unless the types aren't self-documenting.
 
 ## Event handlers
 
