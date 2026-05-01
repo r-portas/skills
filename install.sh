@@ -36,6 +36,10 @@ link_skill() {
 # Iterate over each skill directory and link it into all target directories
 for skill in "$SKILLS_DIR"/*/; do
   name="$(basename "$skill")"
+  if [[ "$name" == draft-* ]]; then
+    echo "ignoring: $name (draft directory)"
+    continue
+  fi
   for target_dir in "${TARGET_DIRS[@]}"; do
     link_skill "$name" "$skill" "$target_dir"
   done
