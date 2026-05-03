@@ -1,11 +1,8 @@
 ---
 name: react-style-guide
 description: >
-  Roy's React codestyle and conventions for TanStack Start, shadcn/ui, and
-  Tailwind v4 projects. Consult this skill whenever writing, editing,
-  refactoring, or reviewing React components, JSX, TypeScript props, event
-  handlers, or deciding where to place files. When in doubt, match existing
-  conventions rather than introducing new ones.
+  Roy's React conventions for shadcn/ui and Tailwind v4. Consult whenever
+  writing, editing, or reviewing React components or JSX.
 user-invocable: false
 metadata:
   author: r-portas
@@ -13,15 +10,19 @@ metadata:
 
 # React Style Guide
 
+For general TypeScript conventions (interface vs type, file naming, region blocks, TSDoc for utilities), see the `typescript-style-guide` skill.
+
 ## Components
 
 ### Naming and file conventions
 
-File names use lowercase with hyphens: `search-input.tsx`, `page-header.tsx`, `post-card.tsx`. Component functions use PascalCase: `SearchInput`, `PageHeader`, `PostCard`. These always match — a file named `page-header.tsx` exports `PageHeader`.
+File names use lowercase with hyphens: `search-input.tsx`, `page-header.tsx`. Component functions use PascalCase: `SearchInput`, `PageHeader`. These always match — a file named `page-header.tsx` exports `PageHeader`.
 
 The main component in a file uses a default export. Sub-components and everything else use named exports.
 
 ### Component location
+
+See `tanstack-start-project-structure` for the full directory layout. React-specific locations:
 
 | Location | What goes there |
 | --- | --- |
@@ -29,34 +30,24 @@ The main component in a file uses a default export. Sub-components and everythin
 | `src/components/<domain>/` | Domain-specific groupings (e.g. `home/`, `posts/`) |
 | `src/components/` | Shared components used across multiple routes |
 | `src/hooks/` | Custom React hooks |
-| `src/lib/` | Non-UI code: data fetching, utilities, etc. |
 
 ### Props typing
 
-Use `interface` for component props, `type` for data structures:
+Props and data shapes both use `interface` — see `typescript-style-guide` for when to reach for `type` instead:
 
 ```tsx
-// ✅ Props use interface
 interface PageHeaderProps {
   title: React.ReactNode;
   lead?: React.ReactNode;
   actions?: React.ReactNode;
 }
 
-// ✅ Data shapes use type
-type PostSummary = {
+interface PostSummary {
   slug: string;
   title: string;
   date: string;
   tags: string[];
-};
-```
-
-Always use the `type` keyword for type-only imports:
-
-```tsx
-import type { PostSummary } from "@/lib/posts";
-import { type VariantProps } from "class-variance-authority";
+}
 ```
 
 ### Component splitting
@@ -67,44 +58,17 @@ If an extracted component is only used in one place, keep it in the same file as
 
 ### File structure
 
-Only add regions when a file has more than one logical part. A file with a single component needs no regions at all:
-
-```tsx
-// simple-badge.tsx — single component, no regions needed
-interface SimpleBadgeProps {
-  label: string;
-}
-
-export default function SimpleBadge({ label }: SimpleBadgeProps) {
-  return <span className="rounded px-2 py-0.5 text-xs">{label}</span>;
-}
-```
-
-When a file has multiple parts, use `// #region <description>` / `// #endregion` blocks in this order:
-
-1. **Types** — shared data types used across the file
-2. **Helpers** — private utility functions only used within this file
-3. **Main export** — the primary component (props interface lives inside this region)
-4. **Sub-components** — co-located components (each gets its own region, props interface inside)
+Only add regions when a file has more than one logical part. A file with a single component needs no regions at all. When a file has multiple parts, follow the region ordering from `typescript-style-guide`: Types → Helpers → Main export → Sub-components.
 
 ```tsx
 // post-card.tsx
 
 // #region Types
-type PostSummary = { slug: string; title: string };
+interface PostSummary { slug: string; title: string }
 // #endregion
 
 // #region Helpers
-function groupPostsByYear(posts: PostSummary[]) {
-  const groups: { year: number; posts: PostSummary[] }[] = [];
-  for (const post of posts) {
-    const year = new Date(post.date).getFullYear();
-    const last = groups[groups.length - 1];
-    if (last?.year === year) last.posts.push(post);
-    else groups.push({ year, posts: [post] });
-  }
-  return groups;
-}
+function groupPostsByYear(posts: PostSummary[]) { ... }
 // #endregion
 
 // #region PostCard
@@ -155,10 +119,6 @@ Use `cn()` (from `@/lib/utils`) to compose Tailwind classes. Don't use string in
 
 Always accept and forward a `className` prop on presentational components so callers can extend styles.
 
-## Import ordering
-
-Import order is enforced automatically by oxfmt — don't manually sort or group imports.
-
 ## JSX style
 
 Self-close elements with no children:
@@ -166,7 +126,6 @@ Self-close elements with no children:
 ```tsx
 // ✅
 <Input />
-<Separator />
 
 // ❌
 <Input></Input>
@@ -187,9 +146,7 @@ if (posts.length === 0) return null;
 
 ## Documentation
 
-### Components
-
-Default exported components get a TSDoc comment describing what the component does. Each field on the props interface gets an inline comment:
+Default exported components get a TSDoc comment. Each prop gets an inline comment:
 
 ```tsx
 /**
@@ -207,32 +164,14 @@ interface PostCardProps {
 }
 ```
 
-The component TSDoc should describe what the component renders or does — not restate the component name. One sentence is usually enough. Prop comments can be brief phrases; omit them only when the prop name is completely self-explanatory (rare).
-
-### Library helpers
-
-Exported functions under `src/lib/` get a TSDoc comment with a brief `@example` block:
-
-```ts
-/**
- * Groups an array of posts by publication year, most recent first.
- *
- * @example
- * const grouped = groupPostsByYear(posts);
- * // [{ year: 2024, posts: [...] }, { year: 2023, posts: [...] }]
- */
-export function groupPostsByYear(posts: PostSummary[]): YearGroup[] { ... }
-```
-
-The `@example` should show a realistic call and, where non-obvious, the shape of the return value. Keep it short — two or three lines at most. Skip `@param` and `@returns` tags unless the types aren't self-documenting.
+One sentence is enough. Prop comments can be brief phrases; omit only when the prop name is completely self-explanatory.
 
 ## Event handlers
 
-Name handlers `handle` + action: `handleCopy`, `handleSubmit`, `handleSelect`. For simple inline handlers (analytics calls, single setState), inline is fine:
+Name handlers `handle` + action: `handleCopy`, `handleSubmit`, `handleSelect`. For simple inline handlers, inline is fine:
 
 ```tsx
 <button onClick={handleCopy}>Copy</button>
-
 <button onClick={() => capture("share_clicked", { slug })}>Share</button>
 ```
 
@@ -240,7 +179,7 @@ Name handlers `handle` + action: `handleCopy`, `handleSubmit`, `handleSelect`. F
 
 After writing or editing any component, verify each item before reporting the task as done:
 
-- [ ] Regions used if file has more than one logical part (Helpers → Main export → Sub-components)
+- [ ] Regions used if file has more than one logical part (Types → Helpers → Main export → Sub-components)
 - [ ] Default exported component has a TSDoc comment
 - [ ] Every prop on the interface has an inline comment
 - [ ] `cn()` used for all class composition (no string interpolation or manual ternaries)
