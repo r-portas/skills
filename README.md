@@ -24,6 +24,19 @@ cd ~/Projects/skills
 
 Re-run `./install.sh` whenever you add new skills — existing symlinks are left untouched.
 
+## CLAUDE.md / AGENT.md configuration
+
+Style guide skills are passive — agents only consult them if they decide to. To ensure they're always applied, add this to the **top** of your project's `CLAUDE.md` or `AGENT.md`:
+
+```markdown
+## Style guides
+Always consult these skills before writing any code:
+- `typescript-style-guide` — TypeScript conventions
+- `react-style-guide` — React/JSX conventions
+- `preferred-npm-packages` — package choices
+- `tanstack-start-project-structure` — where files go
+```
+
 ## Skills
 
 | Skill | Description |
