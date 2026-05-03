@@ -2,6 +2,9 @@
 
 Drizzle is currently in beta, so both packages need the `@beta` tag.
 
+> [!CAUTION]
+> **Use the beta dist-tags.** Install `drizzle-orm@beta` and `drizzle-kit@beta` exactly as shown below. Do not run `bun add drizzle-orm` without `@beta`.
+
 ## Installation
 
 ```bash
