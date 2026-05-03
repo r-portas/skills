@@ -20,7 +20,7 @@ config files, wrapper modules, and any scaffolded boilerplate.
 1. Identify which package is being bootstrapped from the user's request
 2. **Read the reference file** using the `Read` tool before writing any code — do not rely on memory or training data
 3. Follow the reference file's instructions exactly
-4. If no reference file exists for the requested package, use best judgement and follow the general conventions of the codebase
+4. If no reference file exists for the requested package, consult the `preferred-npm-packages` skill for stack defaults (runtime, package manager, etc.), then install and configure using the package's official docs. Prefer the simplest setup that fits the existing codebase — don't over-engineer.
 
 ## Packages
 

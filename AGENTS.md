@@ -15,25 +15,7 @@ skills/
 └── README.md
 ```
 
-## Agent Skills Specification
-
-Skills follow the [Agent Skills spec](https://agentskills.io/specification.md).
-
-## Git Workflow
-
-### Branch Naming
-
-- New skills: `feature/skill-name`
-- Improvements: `fix/skill-name-description`
-- Documentation: `docs/description`
-
-### Commit Messages
-
-Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
-
-- `feat: add skill-name skill`
-- `fix: improve clarity in page-cro`
-- `docs: update README`
+## Development
 
 ### Keeping Skills in Sync
 
