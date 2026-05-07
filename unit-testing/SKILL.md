@@ -44,22 +44,22 @@ Use `*.test.ts` for logic and `*.test.tsx` for React components.
 Import everything from `bun:test`:
 
 ```ts
-import { describe, it, expect, beforeEach, afterEach } from "bun:test";
+import { describe, test, expect, beforeEach, afterEach } from "bun:test";
 
 describe("formatDate", () => {
-  it("formats a date with the default locale", () => {
+  test("formats a date with the default locale", () => {
     expect(formatDate(new Date("2024-01-15"))).toBe("Jan 15, 2024");
   });
 
-  it("returns an empty string for null", () => {
+  test("returns an empty string for null", () => {
     expect(formatDate(null)).toBe("");
   });
 });
 ```
 
 - Use `describe` to group related cases; nest only when there's a real hierarchy
-- Prefer `it` over `test` — reads more naturally: _"it formats a date"_
-- One logical assertion per `it` keeps failures easy to diagnose
+- Use `test` over `it`
+- One logical assertion per `test` keeps failures easy to diagnose
 
 ## Mocking
 
@@ -147,12 +147,12 @@ Add `/// <reference lib="dom" />` at the top of each `.test.tsx` file to get Typ
 ```tsx
 /// <reference lib="dom" />
 
-import { describe, it, expect } from "bun:test";
+import { describe, test, expect } from "bun:test";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("SearchInput", () => {
-  it("calls onSearch when the user submits", async () => {
+  test("calls onSearch when the user submits", async () => {
     const onSearch = mock(() => {});
     render(<SearchInput onSearch={onSearch} />);
 
