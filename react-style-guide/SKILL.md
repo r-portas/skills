@@ -37,13 +37,13 @@ Props and data shapes both use `interface` — see `typescript-style-guide` for 
 
 ### Component splitting
 
-Extract a component when it manages its own state, has its own loading/error state, or can be described independently. Keep things inline otherwise — prefer fewer files.
-
-If an extracted component is only used in one place, keep it in the same file as the parent rather than creating a new file.
+- Extract when: manages own state, has loading/error state, or independently describable
+- Keep inline otherwise — prefer fewer files
+- Single-use extractions stay in the same file as the parent
 
 ### File structure
 
-Only add regions when a file has more than one logical part. A file with a single component needs no regions at all. When a file has multiple parts, follow the region ordering from `typescript-style-guide`: Types → Helpers → Main export → Sub-components. → [example](references/examples.md#file-structure-regions)
+Only add regions when a file has more than one logical part. When present, follow the region ordering from `typescript-style-guide`: Types → Helpers → Main export → Sub-components. → [example](references/examples.md#file-structure-regions)
 
 ## Classnames
 
@@ -55,7 +55,7 @@ For conditional rendering, prefer logical AND for optional slots, ternary for bi
 
 ## Documentation
 
-Default exported components get a TSDoc comment. Each prop gets an inline comment. One sentence is enough. Prop comments can be brief phrases; omit only when the prop name is completely self-explanatory. → [example](references/examples.md#component-documentation)
+Default exported components get a TSDoc comment. Each prop gets an inline comment (one sentence or phrase; omit only if the name is completely self-explanatory). → [example](references/examples.md#component-documentation)
 
 ## Event handlers
 

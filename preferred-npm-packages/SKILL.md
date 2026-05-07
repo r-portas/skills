@@ -31,8 +31,7 @@ choice — don't silently pull in something heavyweight.
   Docs: https://tanstack.com/llms.txt
 
 ## HTTP
-- **Native `fetch`** — Bun and modern runtimes support it natively.
-  Avoid axios, ky, got, or any HTTP client library. No install needed.
+- **Native `fetch`** — built into Bun and modern runtimes. No install needed.
 
 ## Validation
 - **zod** — schema definition, validation, and TypeScript type inference.
@@ -44,7 +43,6 @@ choice — don't silently pull in something heavyweight.
 
 ## Dates
 - **date-fns** — functional, tree-shakeable date utilities.
-  Avoid moment.js, dayjs, luxon.
   Use the **bootstrap** skill to set up date-fns.
 
 ## Formatting & Linting
@@ -52,9 +50,7 @@ choice — don't silently pull in something heavyweight.
   Use the **bootstrap** skill to set up oxfmt and oxlint.
 
 ## Styling
-- **Tailwind CSS + shadcn/ui** — utility-first styling with shadcn for
-  component primitives. Avoid styled-components, CSS modules, or other
-  CSS-in-JS solutions.
+- **Tailwind CSS + shadcn/ui** — utility-first styling with shadcn for component primitives.
   ```
   bun add tailwindcss @tailwindcss/vite
   bunx shadcn@latest init
@@ -63,7 +59,6 @@ choice — don't silently pull in something heavyweight.
 
 ## Database / ORM
 - **Drizzle ORM + Bun SQLite** — for local and embedded databases.
-  Use Drizzle's query builder; avoid Prisma, Knex, TypeORM.
   Docs: https://orm.drizzle.team/llms.txt
   Bun SQLite is built-in (`import { Database } from 'bun:sqlite'`), no install needed.
   Use the **bootstrap** skill to set up Drizzle.
