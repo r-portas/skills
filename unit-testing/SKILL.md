@@ -81,7 +81,7 @@ mock.module("./api-client", () => ({
 }));
 ```
 
-`mock.module()` overrides persist for the entire test file and cannot be undone with `mock.restore()`. Use them for file-wide mocks only — if you need per-test isolation, restructure into separate test files.
+`mock.module()` overrides persist for the entire test file and cannot be undone with `mock.restore()`. For per-test isolation, re-call `mock.module()` in `beforeEach` with the variant each test needs.
 
 ### Spy on an existing method
 
