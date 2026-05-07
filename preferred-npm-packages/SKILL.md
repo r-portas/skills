@@ -82,8 +82,6 @@ choice — don't silently pull in something heavyweight.
 - **Bun test runner** (`bun test`) — built-in, no install needed.
 - **React Testing Library + HappyDOM** — add these when testing React
   components. Use HappyDOM as the DOM environment (not jsdom).
-  ```
-  bun add -d @testing-library/react @testing-library/user-event happydom
-  ```
+  Use the **bootstrap** skill to set up React Testing Library.
 - Avoid Jest and Vitest in new projects (acceptable in legacy codebases
   that already use them).
