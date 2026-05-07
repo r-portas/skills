@@ -1,12 +1,12 @@
 ---
 name: bootstrap
-user-invocable: true
 description: >
   Installs and fully integrates packages and libraries into a project — including
   config files, helper modules, and scaffolded templates. Use when the user asks
   to install, set up, configure, add, or bootstrap a specific package: drizzle,
   date-fns, oxlint, oxfmt or similar. Prefer this over a generic npm install
   whenever the package has an opinionated setup or requires boilerplate files.
+user-invocable: true
 metadata:
   author: r-portas
 ---

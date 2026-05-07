@@ -81,7 +81,7 @@ mock.module("./api-client", () => ({
 }));
 ```
 
-`mock.module()` overrides persist across the test file. Prefer `beforeEach` + `mock.restore()` for isolated per-test overrides (see below).
+`mock.module()` overrides persist for the entire test file and cannot be undone with `mock.restore()`. Use them for file-wide mocks only — if you need per-test isolation, restructure into separate test files.
 
 ### Spy on an existing method
 
@@ -125,7 +125,7 @@ Add `/// <reference lib="dom" />` at the top of each `.test.tsx` file to get Typ
 ```tsx
 /// <reference lib="dom" />
 
-import { describe, test, expect } from "bun:test";
+import { describe, test, expect, mock } from "bun:test";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
