@@ -2,7 +2,8 @@
 name: tanstack-start-project-structure
 description: >
   Directory and file layout conventions for Roy's TanStack Start projects.
-  Consult whenever deciding where to place a new file or folder.
+  Consult whenever creating files, adding routes, scaffolding new components
+  or hooks, or deciding where to place any new file or folder.
 user-invocable: false
 metadata:
   author: r-portas

@@ -1,5 +1,6 @@
 ---
 name: bootstrap
+user-invocable: true
 description: >
   Installs and fully integrates packages and libraries into a project — including
   config files, helper modules, and scaffolded templates. Use when the user asks
