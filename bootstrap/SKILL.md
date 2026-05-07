@@ -30,3 +30,4 @@ config files, wrapper modules, and any scaffolded boilerplate.
 | drizzle | [references/drizzle.md](references/drizzle.md) |
 | date-fns | [references/date-fns.md](references/date-fns.md) |
 | oxlint + oxfmt | [references/oxlint-oxfmt.md](references/oxlint-oxfmt.md) |
+| react-testing-library | [references/react-testing-library.md](references/react-testing-library.md) |
