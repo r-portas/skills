@@ -141,6 +141,8 @@ Add `"dom"` to the `lib` array in `tsconfig.json` to get TypeScript DOM types ac
 { "compilerOptions": { "lib": ["ESNext", "DOM"] } }
 ```
 
+Use `@testing-library/user-event` for interactions. Call `userEvent.setup()` inside each test — per the docs, this creates an isolated instance with its own event state:
+
 ```tsx
 import { describe, test, expect, mock } from "bun:test";
 import { render, screen } from "@testing-library/react";
@@ -148,10 +150,11 @@ import userEvent from "@testing-library/user-event";
 
 describe("SearchInput", () => {
   test("calls onSearch when the user submits", async () => {
+    const user = userEvent.setup();
     const onSearch = mock(() => {});
     render(<SearchInput onSearch={onSearch} />);
 
-    await userEvent.type(screen.getByRole("searchbox"), "hello{Enter}");
+    await user.type(screen.getByRole("searchbox"), "hello{Enter}");
 
     expect(onSearch).toHaveBeenCalledWith("hello");
   });
