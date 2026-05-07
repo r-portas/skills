@@ -35,6 +35,7 @@ Always consult these skills before writing any code:
 - `react-style-guide` — React/JSX conventions
 - `preferred-npm-packages` — package choices
 - `tanstack-start-project-structure` — where files go
+- `unit-testing` — testing conventions
 ```
 
 ## Skills
@@ -46,6 +47,7 @@ Always consult these skills before writing any code:
 | [typescript-style-guide](./typescript-style-guide/SKILL.md) | TypeScript conventions — interface vs type, imports, TSDoc, file naming, regions |
 | [react-style-guide](./react-style-guide/SKILL.md) | React component conventions and codestyle |
 | [bootstrap](./bootstrap/SKILL.md) | Install and configure packages and libraries into a project |
+| [unit-testing](./unit-testing/SKILL.md) | Testing conventions — Bun test runner, mocking, React Testing Library |
 
 ## Other Skills
 
