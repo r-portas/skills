@@ -63,56 +63,76 @@ describe("formatDate", () => {
 
 ## Mocking
 
-### Inline function mock
+Mock at system boundaries — anything that reaches outside the process or produces non-deterministic output: outbound HTTP, file I/O, time, external services.
+
+**Do not mock internal modules.** If internal modules need isolation, extract a pure function instead.
+
+### Example: mocking a module dependency
+
+Given a function that reads a file:
 
 ```ts
-import { mock } from "bun:test";
+// get-post.ts
+import { readFileSync } from "node:fs";
 
-const sendEmail = mock(() => Promise.resolve({ ok: true }));
+export function getPost(id: string): string {
+  return readFileSync(`posts/${id}.md`, "utf-8");
+}
 ```
 
-### Replace a whole module
+Mock `node:fs` with `mock.module()`, then import the module under test. `mock.module()` must be called before the import so define the mock function separately to keep a reference for assertions.
 
 ```ts
-import { mock } from "bun:test";
+// get-post.test.ts
+import { describe, test, expect, mock, beforeEach } from "bun:test";
 
-mock.module("./api-client", () => ({
-  fetchUser: mock(() => Promise.resolve({ id: 1, name: "Test User" })),
+const mockReadFileSync = mock(() => "# Hello World");
+
+mock.module("node:fs", () => ({
+  readFileSync: mockReadFileSync,
 }));
+
+const { getPost } = await import("./get-post");
+
+describe("getPost", () => {
+  beforeEach(() => {
+    mockReadFileSync.mockClear();
+  });
+
+  test("reads the correct file path", () => {
+    getPost("my-post");
+    expect(mockReadFileSync).toHaveBeenCalledWith("posts/my-post.md", "utf-8");
+  });
+
+  test("returns the file content", () => {
+    expect(getPost("my-post")).toBe("# Hello World");
+  });
+});
 ```
 
-`mock.module()` overrides persist for the entire test file and cannot be undone with `mock.restore()`. For per-test isolation, re-call `mock.module()` in `beforeEach` with the variant each test needs.
+Key points:
+- `mock.module()` overrides persist for the entire file and cannot be undone with `mock.restore()`
+- Call `mockClear()` in `beforeEach` to reset call counts between tests
+- For per-test return value variation, re-call `mockReadFileSync.mockImplementation(...)` in `beforeEach`
 
-### Spy on an existing method
+### Spying on an existing method
 
-```ts
-import { spyOn, expect } from "bun:test";
-
-const spy = spyOn(analytics, "track");
-doSomething();
-expect(spy).toHaveBeenCalledTimes(1);
-```
-
-### Restore mocks
+Use `spyOn` when you want to observe calls on an object you already have, without replacing the whole module:
 
 ```ts
-import { afterEach, mock } from "bun:test";
+import { test, expect, spyOn, afterEach, mock } from "bun:test";
+
+const spy = spyOn(console, "error");
 
 afterEach(() => {
   mock.restore(); // restores spied-on functions; does NOT reset mock.module() overrides
 });
+
+test("logs an error on invalid input", () => {
+  processInput(null);
+  expect(spy).toHaveBeenCalledTimes(1);
+});
 ```
-
-### What to mock
-
-Mock at system boundaries — anything that reaches outside the process or produces non-deterministic output:
-
-- Outbound HTTP calls (`fetch`, API clients)
-- File I/O beyond the test's own fixtures
-- `Date.now()`, `Math.random()`
-- External services (email, analytics, payments)
-
-**Do not mock internal modules.** If two modules in the same codebase need to be tested in isolation, that's a design signal — prefer extracting a pure function or refactoring the dependency instead.
 
 ## React component testing
 
