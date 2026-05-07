@@ -138,7 +138,7 @@ Use the `bootstrap` skill to install and configure React Testing Library and Hap
 Add `"dom"` to the `lib` array in `tsconfig.json` to get TypeScript DOM types across all test files:
 
 ```json
-{ "compilerOptions": { "lib": ["ESNext", "dom"] } }
+{ "compilerOptions": { "lib": ["ESNext", "DOM"] } }
 ```
 
 ```tsx
