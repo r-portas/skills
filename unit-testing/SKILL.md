@@ -80,11 +80,12 @@ export function getPost(id: string): string {
 }
 ```
 
-Mock `node:fs` with `mock.module()`, then import the module under test. `mock.module()` must be called before the import so define the mock function separately to keep a reference for assertions.
+Mock `node:fs` with `mock.module()` before importing the module under test. Define the mock function separately so you have a reference for assertions.
 
 ```ts
 // get-post.test.ts
 import { describe, test, expect, mock, beforeEach } from "bun:test";
+import { getPost } from "./get-post";
 
 const mockReadFileSync = mock(() => "# Hello World");
 
@@ -92,20 +93,14 @@ mock.module("node:fs", () => ({
   readFileSync: mockReadFileSync,
 }));
 
-const { getPost } = await import("./get-post");
-
 describe("getPost", () => {
   beforeEach(() => {
     mockReadFileSync.mockClear();
   });
 
-  test("reads the correct file path", () => {
-    getPost("my-post");
-    expect(mockReadFileSync).toHaveBeenCalledWith("posts/my-post.md", "utf-8");
-  });
-
-  test("returns the file content", () => {
+  test("reads the correct file path and returns content", () => {
     expect(getPost("my-post")).toBe("# Hello World");
+    expect(mockReadFileSync).toHaveBeenCalledWith("posts/my-post.md", "utf-8");
   });
 });
 ```
@@ -140,11 +135,13 @@ Use the `bootstrap` skill to install and configure React Testing Library and Hap
 
 ### Writing component tests
 
-Add `/// <reference lib="dom" />` at the top of each `.test.tsx` file to get TypeScript DOM types:
+Add `"dom"` to the `lib` array in `tsconfig.json` to get TypeScript DOM types across all test files:
+
+```json
+{ "compilerOptions": { "lib": ["ESNext", "dom"] } }
+```
 
 ```tsx
-/// <reference lib="dom" />
-
 import { describe, test, expect, mock } from "bun:test";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
