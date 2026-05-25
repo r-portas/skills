@@ -22,14 +22,7 @@ The main component in a file uses a default export. Sub-components and everythin
 
 ### Component location
 
-See `tanstack-start-project-structure` for the full directory layout. React-specific locations:
-
-| Location | What goes there |
-| --- | --- |
-| `src/components/ui/` | Base UI primitives (button, card, input, typography), following shadcn/ui conventions |
-| `src/components/<domain>/` | Domain-specific groupings (e.g. `home/`, `posts/`) |
-| `src/components/` | Shared components used across multiple routes |
-| `src/hooks/` | Custom React hooks |
+See `tanstack-start-project-structure` for the full directory layout.
 
 ### Props typing
 

@@ -29,6 +29,10 @@ Use `// #region <description>` / `// #endregion` to organize files with more tha
 
 Typical ordering: **Types → Helpers → Main export** → [example](references/examples.md#region-blocks)
 
+## null vs undefined
+
+Prefer `undefined` over `null` for absent values. Use `undefined` in return types, optional fields, and fallback expressions. Avoid `null` unless interacting with an external API that requires it.
+
 ## TSDoc for exported functions
 
 All exported functions get a TSDoc comment with a brief `@example`. Show a realistic call and, where non-obvious, the shape of the return value. Two or three lines max. Skip `@param` and `@returns` unless the types aren't self-documenting. → [example](references/examples.md#tsdoc-for-exported-functions)
