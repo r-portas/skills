@@ -1,4 +1,7 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  // Leave fenced code blocks in markdown untouched — oxfmt otherwise rewrites
+  // intentional snippets (e.g. JSX examples in the style-guide skills) into
+  // invalid/altered code.
   "embeddedLanguageFormatting": "off"
 }
