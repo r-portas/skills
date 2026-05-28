@@ -20,8 +20,15 @@ config files, wrapper modules, and any scaffolded boilerplate.
 
 1. Identify which package is being bootstrapped from the user's request
 2. **Read the reference file** using the `Read` tool before writing any code — do not rely on memory or training data
-3. Follow the reference file's instructions exactly
+3. Follow the reference file's instructions exactly — **do not delegate to other skills** (e.g. `update-config`) for steps covered by the reference; execute them directly yourself
 4. If no reference file exists for the requested package, consult the `preferred-npm-packages` skill for stack defaults (runtime, package manager, etc.), then install and configure using the package's official docs. Prefer the simplest setup that fits the existing codebase — don't over-engineer.
+
+## Critical rules
+
+- **Never inline hook commands in settings JSON.** When the reference defines a shell script (e.g. `.claude/hooks/format.sh`), create that file and reference it from settings — do not collapse the logic into a one-liner `command` string.
+- **Use `$CLAUDE_PROJECT_DIR` for project-relative paths** in hook scripts, not hardcoded absolute paths.
+- **Use `node_modules/.bin/<tool>` for local binaries** in hook scripts, not `bunx`/`npx` — it's faster and avoids network calls.
+- **Pipe-test every hook script** before writing it to settings: `echo '<json>' | .claude/hooks/script.sh` and verify exit 0 and the expected side effect.
 
 ## Packages
 
