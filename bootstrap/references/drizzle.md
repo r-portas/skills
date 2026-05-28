@@ -55,6 +55,7 @@ DATABASE_URL=file:./local.db
 Create `src/db/index.ts`. Use `drizzle-orm/bun-sqlite` — the Bun-native driver, not the generic sqlite adapter:
 
 ```ts
+import "@tanstack/react-start/server-only";
 import { drizzle } from "drizzle-orm/bun-sqlite";
 import * as schema from "./schema";
 
