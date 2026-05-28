@@ -8,5 +8,5 @@ if [[ "$FILE_PATH" != *.md ]]; then
   exit 0
 fi
 
-"$CLAUDE_PROJECT_DIR/node_modules/.bin/oxfmt" "$FILE_PATH" >&2 2>&1 || true
+"$CLAUDE_PROJECT_DIR/node_modules/.bin/oxfmt" "$FILE_PATH" >/dev/null 2>&1 || true
 exit 0
