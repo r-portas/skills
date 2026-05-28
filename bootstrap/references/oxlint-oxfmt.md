@@ -65,14 +65,57 @@ bun add -D oxfmt oxlint
 }
 ```
 
-### 5. Verify
+### 5. Auto-format on save with a Claude hook (optional)
+
+A `PostToolUse` hook formats files with oxfmt every time Claude writes or edits one.
+
+Only configure this if the repo shows signs of using Claude Code (e.g. a `CLAUDE.md` file or an existing `.claude/` directory). If there are no such signs, ask the user whether they want the hook configured before adding it.
+
+`.claude/hooks/format.sh` (make it executable with `chmod +x`):
+
+```bash
+#!/bin/bash
+# Reads PostToolUse hook input from stdin and formats the touched file with oxfmt.
+INPUT=$(cat)
+FILE_PATH=$(jq -r '.tool_input.file_path // empty' <<< "$INPUT")
+
+[[ -z "$FILE_PATH" ]] && exit 0
+
+"$CLAUDE_PROJECT_DIR/node_modules/.bin/oxfmt" "$FILE_PATH" >/dev/null 2>&1 || true
+exit 0
+```
+
+`.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/format.sh",
+            "statusMessage": "Formatting..."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+> oxfmt ignores files it doesn't support, so the hook can run on every edit without filtering by extension.
+
+### 6. Verify
 
 ```bash
 bun run format
 bun run lint
 ```
 
-### 6. Remove old Prettier / ESLint
+### 7. Remove old Prettier / ESLint
 
 - Delete config files: `.prettierrc`, `.eslintrc`, `eslint.config.*`, etc.
 - Remove packages: `prettier`, `eslint`, and related plugins from `package.json`
