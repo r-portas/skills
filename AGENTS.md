@@ -17,6 +17,10 @@ skills/
 
 ## Development
 
+### Formatting
+
+Markdown is formatted with [oxfmt](https://oxc.rs). Run `bun run format` to format all files, or `bun run format:check` to verify (CI runs this and fails on unformatted markdown). Embedded code blocks are left untouched (`embeddedLanguageFormatting: "off"`). A `PostToolUse` Claude hook auto-formats markdown on save.
+
 ### Keeping Skills in Sync
 
 The `preferred-npm-packages` and `bootstrap` skills are closely related:

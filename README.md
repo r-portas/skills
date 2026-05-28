@@ -40,14 +40,14 @@ Always consult these skills before writing any code:
 
 ## Skills
 
-| Skill | Description |
-|-------|-------------|
-| [preferred-npm-packages](./preferred-npm-packages/SKILL.md) | Preferred NPM packages and technology stack |
-| [tanstack-start-project-structure](./tanstack-start-project-structure/SKILL.md) | Directory and file layout conventions for TanStack Start projects |
-| [typescript-style-guide](./typescript-style-guide/SKILL.md) | TypeScript conventions — interface vs type, imports, TSDoc, file naming, regions |
-| [react-style-guide](./react-style-guide/SKILL.md) | React component conventions and codestyle |
-| [bootstrap](./bootstrap/SKILL.md) | Install and configure packages and libraries into a project |
-| [unit-testing](./unit-testing/SKILL.md) | Testing conventions — Bun test runner, mocking, React Testing Library |
+| Skill                                                                           | Description                                                                      |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| [preferred-npm-packages](./preferred-npm-packages/SKILL.md)                     | Preferred NPM packages and technology stack                                      |
+| [tanstack-start-project-structure](./tanstack-start-project-structure/SKILL.md) | Directory and file layout conventions for TanStack Start projects                |
+| [typescript-style-guide](./typescript-style-guide/SKILL.md)                     | TypeScript conventions — interface vs type, imports, TSDoc, file naming, regions |
+| [react-style-guide](./react-style-guide/SKILL.md)                               | React component conventions and codestyle                                        |
+| [bootstrap](./bootstrap/SKILL.md)                                               | Install and configure packages and libraries into a project                      |
+| [unit-testing](./unit-testing/SKILL.md)                                         | Testing conventions — Bun test runner, mocking, React Testing Library            |
 
 ## Other Skills
 

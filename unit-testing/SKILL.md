@@ -106,6 +106,7 @@ describe("getPost", () => {
 ```
 
 Key points:
+
 - `mock.module()` overrides persist for the entire file and cannot be undone with `mock.restore()`
 - Call `mockClear()` in `beforeEach` to reset call counts between tests
 - For per-test return value variation, re-call `mockReadFileSync.mockImplementation(...)` in `beforeEach`
