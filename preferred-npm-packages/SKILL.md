@@ -20,21 +20,26 @@ requires a library not listed here, pick the simplest option and mention the
 choice — don't silently pull in something heavyweight.
 
 ## Language
+
 - **TypeScript** — always. No plain JS files in new projects.
 
 ## Runtime & Package Manager
+
 - **Bun** — use `bun` commands for running, installing, and testing.
   Not `node`, `npm`, `yarn`, or `pnpm`.
 
 ## Meta-framework
+
 - **TanStack Start** — full-stack React framework. Use this for new web apps.
   Docs: https://tanstack.com/llms.txt
 
 ## HTTP
+
 - **Native `fetch`** — Bun and modern runtimes support it natively.
   Avoid axios, ky, got, or any HTTP client library. No install needed.
 
 ## Validation
+
 - **zod** — schema definition, validation, and TypeScript type inference.
   Use it at API boundaries, form inputs, and environment variables.
   Always use the latest version (currently v4). Import as `import * as z from "zod";`
@@ -44,15 +49,18 @@ choice — don't silently pull in something heavyweight.
   ```
 
 ## Dates
+
 - **date-fns** — functional, tree-shakeable date utilities.
   Avoid moment.js, dayjs, luxon.
   Use the **bootstrap** skill to set up date-fns.
 
 ## Formatting & Linting
+
 - **oxfmt + oxlint** — formatting and linting. Avoid Prettier and ESLint.
   Use the **bootstrap** skill to set up oxfmt and oxlint.
 
 ## Styling
+
 - **Tailwind CSS + shadcn/ui** — utility-first styling with shadcn for
   component primitives. Avoid styled-components, CSS modules, or other
   CSS-in-JS solutions.
@@ -63,6 +71,7 @@ choice — don't silently pull in something heavyweight.
   ```
 
 ## Database / ORM
+
 - **Drizzle ORM + Bun SQLite** — for local and embedded databases.
   Use Drizzle's query builder; avoid Prisma, Knex, TypeORM.
   Docs: https://orm.drizzle.team/llms.txt
@@ -70,6 +79,7 @@ choice — don't silently pull in something heavyweight.
   Use the **bootstrap** skill to set up Drizzle.
 
 ## Utility Functions
+
 - **es-toolkit** — modern lodash alternative with built-in TypeScript types,
   significantly smaller bundle size, and faster runtime. Import specific
   functions (`import { groupBy } from 'es-toolkit'`).
@@ -79,6 +89,7 @@ choice — don't silently pull in something heavyweight.
   ```
 
 ## Testing
+
 - **Bun test runner** (`bun test`) — built-in, no install needed.
 - **React Testing Library + HappyDOM** — add these when testing React
   components. Use HappyDOM as the DOM environment (not jsdom).
