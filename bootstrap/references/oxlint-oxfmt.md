@@ -65,9 +65,11 @@ bun add -D oxfmt oxlint
 }
 ```
 
-### 5. Auto-format on save with a Claude hook
+### 5. Auto-format on save with a Claude hook (optional)
 
 A `PostToolUse` hook formats files with oxfmt every time Claude writes or edits one.
+
+Only configure this if the repo shows signs of using Claude Code (e.g. a `CLAUDE.md` file or an existing `.claude/` directory). If there are no such signs, ask the user whether they want the hook configured before adding it.
 
 `.claude/hooks/format.sh` (make it executable with `chmod +x`):
 
