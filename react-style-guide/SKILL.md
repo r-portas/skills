@@ -3,7 +3,7 @@ name: react-style-guide
 description: >
   Roy's React conventions for shadcn/ui and Tailwind v4. Consult whenever
   writing, editing, or reviewing React components or JSX.
-user-invocable: false
+user-invocable: true
 metadata:
   author: r-portas
 ---
@@ -26,7 +26,22 @@ See `tanstack-start-project-structure` for the full directory layout.
 
 ### Props typing
 
-Props and data shapes both use `interface` — see `typescript-style-guide` for when to reach for `type` instead. → [example](references/examples.md#props-typing)
+Props and data shapes both use `interface` — see `typescript-style-guide` for when to reach for `type` instead.
+
+```tsx
+interface PageHeaderProps {
+  title: React.ReactNode;
+  lead?: React.ReactNode;
+  actions?: React.ReactNode;
+}
+
+interface PostSummary {
+  slug: string;
+  title: string;
+  date: string;
+  tags: string[];
+}
+```
 
 ### Component splitting
 
@@ -36,7 +51,35 @@ If an extracted component is only used in one place, keep it in the same file as
 
 ### File structure
 
-Only add regions when a file has more than one logical part. A file with a single component needs no regions at all. When a file has multiple parts, follow the region ordering from `typescript-style-guide`: Types → Helpers → Main export → Sub-components. → [example](references/examples.md#file-structure-regions)
+Only add regions when a file has more than one logical part. A file with a single component needs no regions at all. When a file has multiple parts, follow the region ordering from `typescript-style-guide`: co-locate types and helpers with the region that uses them.
+
+```tsx
+// post-card.tsx
+
+// #region PostCard
+interface PostCardProps {
+  /** The post data to display. */
+  post: PostSummary;
+  /** Extra Tailwind classes forwarded to the root element. */
+  className?: string;
+}
+
+export default function PostCard({ post, className }: PostCardProps) {
+  return <article className={cn("rounded-lg", className)}>...</article>;
+}
+// #endregion
+
+// #region PostCardMeta
+interface PostCardMetaProps {
+  date: string;
+  tags: string[];
+}
+
+function PostCardMeta({ date, tags }: PostCardMetaProps) {
+  return <footer>...</footer>;
+}
+// #endregion
+```
 
 ## Classnames
 
@@ -44,15 +87,47 @@ Use `cn()` (from `@/lib/utils`) to compose Tailwind classes. Don't use string in
 
 ## JSX style
 
-For conditional rendering, prefer logical AND for optional slots, ternary for binary states, and early return for guards. → [example](references/examples.md#jsx-conditional-rendering)
+For conditional rendering, prefer logical AND for optional slots, ternary for binary states, and early return for guards.
+
+```tsx
+// Optional slot — logical AND
+{lead && <Lead>{lead}</Lead>}
+
+// Binary state — ternary
+{isLoading ? <Spinner /> : <Content />}
+
+// Guard — early return
+if (posts.length === 0) return null;
+```
 
 ## Documentation
 
-Default exported components get a TSDoc comment. Each prop gets an inline comment. One sentence is enough. Prop comments can be brief phrases; omit only when the prop name is completely self-explanatory. → [example](references/examples.md#component-documentation)
+Default exported components get a TSDoc comment. Each prop gets an inline comment. One sentence is enough. Prop comments can be brief phrases; omit only when the prop name is completely self-explanatory.
+
+```tsx
+/**
+ * Displays a post summary card with title, date, and tag list.
+ */
+export default function PostCard({ post, className }: PostCardProps) {
+  return <article className={cn("rounded-lg", className)}>...</article>;
+}
+
+interface PostCardProps {
+  /** The post data to display. */
+  post: PostSummary;
+  /** Extra Tailwind classes forwarded to the root element. */
+  className?: string;
+}
+```
 
 ## Event handlers
 
-Name handlers `handle` + action: `handleCopy`, `handleSubmit`, `handleSelect`. For simple inline handlers, inline is fine. → [example](references/examples.md#event-handlers)
+Name handlers `handle` + action: `handleCopy`, `handleSubmit`, `handleSelect`. For simple inline handlers, inline is fine.
+
+```tsx
+<button onClick={handleCopy}>Copy</button>
+<button onClick={() => capture("share_clicked", { slug })}>Share</button>
+```
 
 ## Before finishing
 
