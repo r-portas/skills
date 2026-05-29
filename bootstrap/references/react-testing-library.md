@@ -11,7 +11,7 @@ bun add -d @testing-library/react @testing-library/dom @testing-library/jest-dom
 
 ## Preload files
 
-Create `happydom.ts` at the project root:
+Create `src/happydom.ts`:
 
 ```ts
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
@@ -19,7 +19,7 @@ import { GlobalRegistrator } from "@happy-dom/global-registrator";
 GlobalRegistrator.register();
 ```
 
-Create `testing-library.ts` at the project root:
+Create `src/testing-library.ts`:
 
 ```ts
 import { afterEach, expect } from "bun:test";
@@ -37,12 +37,12 @@ Register both in `bunfig.toml`:
 
 ```toml
 [test]
-preload = ["./happydom.ts", "./testing-library.ts"]
+preload = ["./src/happydom.ts", "./src/testing-library.ts"]
 ```
 
 ## TypeScript types
 
-Create `matchers.d.ts` at the project root so jest-dom matchers are recognised in `bun:test`:
+Create `src/matchers.d.ts` so jest-dom matchers are recognised in `bun:test`:
 
 ```ts
 import type { TestingLibraryMatchers } from "@testing-library/jest-dom/matchers";
