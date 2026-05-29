@@ -42,7 +42,7 @@ choice — don't silently pull in something heavyweight.
 
 - **zod** — schema definition, validation, and TypeScript type inference.
   Use it at API boundaries, form inputs, and environment variables.
-  Always use the latest version (currently v4). Import as `import * as z from "zod";`
+  Always use the latest major version. Import as `import * as z from "zod";`
   Docs: https://zod.dev/llms.txt
   ```
   bun add zod

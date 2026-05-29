@@ -56,5 +56,3 @@ Below is a list of other skills I use:
 - `bunx skills add https://github.com/shadcn/ui --skill shadcn -g`
 - `bunx skills add https://github.com/anthropics/skills -g`
 - `bunx skills add https://github.com/ mattpocock/skills -g`
-
-

@@ -1,8 +1,10 @@
 ---
 name: react-style-guide
 description: >
-  Roy's React conventions for shadcn/ui and Tailwind v4. Consult whenever
-  writing, editing, or reviewing React components or JSX.
+  Roy's React conventions for shadcn/ui and Tailwind — component and file
+  naming, props typing, region blocks, `cn()` class composition, conditional
+  JSX, and TSDoc. Consult whenever writing, editing, or reviewing React
+  components or JSX.
 user-invocable: true
 metadata:
   author: r-portas
